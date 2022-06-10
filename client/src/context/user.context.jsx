@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import * as api from "../api/axios-Instance.api"
 
 const logInUser = async () => {
@@ -17,11 +17,14 @@ export const UserContext = createContext({
     authenticateAndSetUser: () => null,
     isLoading: false,
     setLoading: () => null,
+    setUsersNames: () => {},
+    usersNames: []
 });
 
 export const UserProvider = ({children}) => {
     const [user, setUser] = useState(null);
-    const [isLoading, setLoading] = useState(false)
+    const [usersNames, setUsersNames] = useState([null]);
+    const [isLoading, setLoading] = useState(true)
     
     const authenticateAndSetUser = async () => {
       let token = localStorage.getItem("token")
@@ -30,8 +33,23 @@ export const UserProvider = ({children}) => {
       const user = await logInUser()
       setUser(user)
     }
+
+    useEffect(() => {
+      (async () => {
+        try {
+          setLoading(true)
+          const names = await api.fetchUserNames()
+          setUsersNames(names.data)
+          console.log(names)
+          setLoading(false)  
+        } catch (error) {
+          setLoading(false)
+          console.error(error)
+        }
+      })()
+    }, [])
     
-    const value = {user, setUser, isLoading , authenticateAndSetUser, setLoading}
+    const value = {user, setUser, isLoading , authenticateAndSetUser, setLoading, usersNames}
     return <UserContext.Provider value={value} >{children}</UserContext.Provider>
 } 
 

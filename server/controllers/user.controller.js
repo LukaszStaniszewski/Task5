@@ -24,3 +24,9 @@ exports.sendUser = async (req, res) => {
     console.log(error)
   }
 }
+
+exports.sendUserNames = async (req, res) => {
+  const names = await userService.findAllUsersNames()
+  if(!names) res.sendStatus(418)
+  res.json(names)
+}
