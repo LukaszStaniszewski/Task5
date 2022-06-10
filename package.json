@@ -1,0 +1,15 @@
+{
+  "name": "task_5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "npx nodemon server/index.js",
+    "start": "npx nodemon server/index.js",
+    "build": "npm install --prefix client && npm install --prefix server && npm run build --prefix client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
