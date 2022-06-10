@@ -1,6 +1,6 @@
 import axios from 'axios'
-console.log(process.env.REACT_APP_BASE_API_UR)
-export const api = axios.create({baseURL : "http://localhost:4001"})
+
+export const api = axios.create({baseURL : "process.env.REACT_APP_BASE_API_UR"})
 
 api.interceptors.request.use( (req) => {
   if (localStorage.getItem('token')) {
