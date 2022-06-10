@@ -1,8 +1,4 @@
 import Fuse from 'fuse.js'
-import { useState, useEffect } from "react"
-import Spinner from "./spinner.comonent"
-import * as api from "../api/axios-Instance.api"
-
 
 const Autocomplete = (data) => {
   const {listName, inputValue, stringArray} = data
